@@ -7,19 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E18970025F81BF200AF9591 /* TimeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1896FF25F81BF200AF9591 /* TimeTypes.swift */; };
+		9E18970425F82F4600AF9591 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18970325F82F4600AF9591 /* Extensions.swift */; };
+		9E18970725F952E200AF9591 /* ManifestCalculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18970625F952E200AF9591 /* ManifestCalculationView.swift */; };
 		9EED970025F66C7C0062CC77 /* InterestCalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED96FF25F66C7C0062CC77 /* InterestCalculatorApp.swift */; };
 		9EED970225F66C7C0062CC77 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED970125F66C7C0062CC77 /* ContentView.swift */; };
 		9EED970425F66C7E0062CC77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EED970325F66C7E0062CC77 /* Assets.xcassets */; };
 		9EED970725F66C7E0062CC77 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EED970625F66C7E0062CC77 /* Preview Assets.xcassets */; };
+		9EED971325F66C9E0062CC77 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED971225F66C9E0062CC77 /* Home.swift */; };
+		9EED971725F670DF0062CC77 /* SimpleInterestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED971625F670DF0062CC77 /* SimpleInterestView.swift */; };
+		9EED971A25F6774F0062CC77 /* CompoundInterestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED971925F6774F0062CC77 /* CompoundInterestView.swift */; };
+		9EED972025F698350062CC77 /* SimpleCapitalizationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED971F25F698350062CC77 /* SimpleCapitalizationVM.swift */; };
+		9EED972425F7A75E0062CC77 /* CustomTimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED972325F7A75E0062CC77 /* CustomTimePickerView.swift */; };
+		9EED972725F7A77D0062CC77 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED972625F7A77D0062CC77 /* CustomTextField.swift */; };
+		9EED972E25F7AFC50062CC77 /* LoanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED972D25F7AFC50062CC77 /* LoanView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E1896FF25F81BF200AF9591 /* TimeTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTypes.swift; sourceTree = "<group>"; };
+		9E18970325F82F4600AF9591 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		9E18970625F952E200AF9591 /* ManifestCalculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManifestCalculationView.swift; sourceTree = "<group>"; };
 		9EED96FC25F66C7C0062CC77 /* InterestCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterestCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EED96FF25F66C7C0062CC77 /* InterestCalculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCalculatorApp.swift; sourceTree = "<group>"; };
 		9EED970125F66C7C0062CC77 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9EED970325F66C7E0062CC77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EED970625F66C7E0062CC77 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9EED970825F66C7E0062CC77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EED971225F66C9E0062CC77 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		9EED971625F670DF0062CC77 /* SimpleInterestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInterestView.swift; sourceTree = "<group>"; };
+		9EED971925F6774F0062CC77 /* CompoundInterestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundInterestView.swift; sourceTree = "<group>"; };
+		9EED971F25F698350062CC77 /* SimpleCapitalizationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCapitalizationVM.swift; sourceTree = "<group>"; };
+		9EED972325F7A75E0062CC77 /* CustomTimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimePickerView.swift; sourceTree = "<group>"; };
+		9EED972625F7A77D0062CC77 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		9EED972D25F7AFC50062CC77 /* LoanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E18970925F9542700AF9591 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				9E18970625F952E200AF9591 /* ManifestCalculationView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		9EED96F325F66C7C0062CC77 = {
 			isa = PBXGroup;
 			children = (
@@ -52,6 +80,9 @@
 		9EED96FE25F66C7C0062CC77 /* InterestCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				9EED971125F66C960062CC77 /* Model */,
+				9EED971025F66C900062CC77 /* ViewModel */,
+				9EED970F25F66C8B0062CC77 /* View */,
 				9EED96FF25F66C7C0062CC77 /* InterestCalculatorApp.swift */,
 				9EED970125F66C7C0062CC77 /* ContentView.swift */,
 				9EED970325F66C7E0062CC77 /* Assets.xcassets */,
@@ -67,6 +98,61 @@
 				9EED970625F66C7E0062CC77 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9EED970F25F66C8B0062CC77 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9EED971225F66C9E0062CC77 /* Home.swift */,
+				9E18970925F9542700AF9591 /* Shared */,
+				9EED972C25F7AF950062CC77 /* Loans */,
+				9EED972B25F7AF7D0062CC77 /* CompoundInterest */,
+				9EED972225F7A7440062CC77 /* SimpleInterest */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9EED971025F66C900062CC77 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9EED971F25F698350062CC77 /* SimpleCapitalizationVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9EED971125F66C960062CC77 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9E1896FF25F81BF200AF9591 /* TimeTypes.swift */,
+				9E18970325F82F4600AF9591 /* Extensions.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9EED972225F7A7440062CC77 /* SimpleInterest */ = {
+			isa = PBXGroup;
+			children = (
+				9EED971625F670DF0062CC77 /* SimpleInterestView.swift */,
+				9EED972325F7A75E0062CC77 /* CustomTimePickerView.swift */,
+				9EED972625F7A77D0062CC77 /* CustomTextField.swift */,
+			);
+			path = SimpleInterest;
+			sourceTree = "<group>";
+		};
+		9EED972B25F7AF7D0062CC77 /* CompoundInterest */ = {
+			isa = PBXGroup;
+			children = (
+				9EED971925F6774F0062CC77 /* CompoundInterestView.swift */,
+			);
+			path = CompoundInterest;
+			sourceTree = "<group>";
+		};
+		9EED972C25F7AF950062CC77 /* Loans */ = {
+			isa = PBXGroup;
+			children = (
+				9EED972D25F7AFC50062CC77 /* LoanView.swift */,
+			);
+			path = Loans;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +225,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EED970225F66C7C0062CC77 /* ContentView.swift in Sources */,
+				9EED972025F698350062CC77 /* SimpleCapitalizationVM.swift in Sources */,
+				9EED971325F66C9E0062CC77 /* Home.swift in Sources */,
+				9EED971A25F6774F0062CC77 /* CompoundInterestView.swift in Sources */,
+				9EED972E25F7AFC50062CC77 /* LoanView.swift in Sources */,
+				9E18970725F952E200AF9591 /* ManifestCalculationView.swift in Sources */,
+				9EED971725F670DF0062CC77 /* SimpleInterestView.swift in Sources */,
+				9E18970025F81BF200AF9591 /* TimeTypes.swift in Sources */,
 				9EED970025F66C7C0062CC77 /* InterestCalculatorApp.swift in Sources */,
+				9EED972425F7A75E0062CC77 /* CustomTimePickerView.swift in Sources */,
+				9E18970425F82F4600AF9591 /* Extensions.swift in Sources */,
+				9EED972725F7A77D0062CC77 /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
