@@ -16,6 +16,20 @@ enum TimeTypes: String, Equatable, CaseIterable{
     case years = "years"
 }
 
+enum Compounds: String, Equatable, CaseIterable {
+    case continuously = "Continuously"
+    case threeHundrednSixty = "Daily 360/yr"
+    case threeHundrednSixtyFive = "Daily 365/yr"
+    case weekly = "Weekly 52/yr"
+    case biWeekly = "Bi-Weekly 26/yr"
+    case semiMonthly = "Semi_monthly 24/yr"
+    case monthly = "Monthly 12/yr"
+    case biMonthly = "Bi-Monthly 6/yr"
+    case quarterly = "Quarterly 4/yr"
+    case semiAnnually = "Semi-Annually 2/yr"
+    case annually = "Annually 1/yr"
+}
+
 class MyTime {
     var years: Double
     

@@ -12,7 +12,8 @@ struct CustomTimePickerView: View {
     @State var showTimeTypeSheet: Bool = false
     @Binding var time: String
 
-    @EnvironmentObject var simpleInteresVM: SimpleCapitalizationVM
+//    @EnvironmentObject var simpleInteresVM: CommonVM
+    @AppStorage("timeType") var selectedTimeType: TimeTypes = TimeTypes.years
     
     var body: some View{
         HStack(spacing: 5){
@@ -21,17 +22,16 @@ struct CustomTimePickerView: View {
             Button(action: {
                 showTimeTypeSheet.toggle()
             }, label: {
-                Text("<\(simpleInteresVM.selectedTimeType.rawValue)>")
+                Text("<\(self.selectedTimeType.rawValue)>")
                     .foregroundColor(Color.gray)
-                    .frame(minWidth: UIScreen.main.bounds.width * 0.28)
-                    .padding()
+                    .frame(minWidth: UIScreen.main.bounds.width * 0.32)
+                    .padding(.horizontal, 5)
+                    .padding(.vertical, 15)
                     .background(Color.gray.opacity(0.15))
                     .cornerRadius(15)
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(Color.blue.opacity(0.8), lineWidth: 1)
-                        //                                    .shadow(color: .blue, radius: 20, x: 2, y: 2)
-                        //                                    .shadow(color: .blue, radius: 20, x: -2, y: -2)
                     )
             })
             .actionSheet(isPresented: $showTimeTypeSheet, content: {
@@ -46,7 +46,7 @@ struct CustomTimePickerView: View {
         var buttons: [ActionSheet.Button] = []
         TimeTypes.allCases.forEach { (value) in
             buttons.append(.default(Text("\(value.rawValue)")){
-                simpleInteresVM.selectedTimeType = value
+                self.selectedTimeType = value
             })
         }
         return buttons

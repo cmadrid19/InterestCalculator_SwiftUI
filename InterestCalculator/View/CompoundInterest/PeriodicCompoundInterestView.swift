@@ -15,18 +15,18 @@ struct PeriodicCompoundInterestView: View {
     var body: some View {
         VStack(spacing: 10){
             
-            HStack{
-                Text("Periodic Compound Interest".capitalized)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .minimumScaleFactor(0.9)
-                    .lineLimit(1)
-                    .foregroundColor(.black)
-                    .autocapitalization(.sentences)
-                
-                Spacer()
-            }
-            .padding()
+//            HStack{
+//                Text("Periodic Compound Interest".capitalized)
+//                    .font(.title)
+//                    .fontWeight(.bold)
+//                    .minimumScaleFactor(0.9)
+//                    .lineLimit(1)
+//                    .foregroundColor(.black)
+//                    .autocapitalization(.sentences)
+//                
+//                Spacer()
+//            }
+//            .padding()
             
             ManifestCalculationView()
             
@@ -80,9 +80,6 @@ struct PeriodicCompoundInterestView: View {
                 //Answer
                 AnswerView()
                 
-                //Operations
-                OperationsView()
-                
             }
             .padding()
             
@@ -110,16 +107,16 @@ struct PeriodicCompoundInterestView: View {
                     VStack(spacing: 0){
                         switch compoundVM.selectedPurpose {
                         case Purpose.time:
-                            Text("T = \(compoundVM.answer)")
+                            Text("\(compoundVM.answer)")
                                 .fontWeight(.semibold)
                         case Purpose.rate:
-                            Text("R = \(compoundVM.answer)/year")
+                            Text("\(compoundVM.answer)")
                                 .fontWeight(.semibold)
                         case Purpose.principal:
-                            Text("Co = \(compoundVM.answer)")
+                            Text("\(compoundVM.answer)")
                                 .fontWeight(.semibold)
                         default:
-                            Text("Cn = \(compoundVM.answer)")
+                            Text("\(compoundVM.answer)")
                                 .fontWeight(.semibold)
                         }
                     }
@@ -127,27 +124,6 @@ struct PeriodicCompoundInterestView: View {
                 }
             }
             else {
-                Spacer()
-            }
-        }
-    }
-    
-    private struct OperationsView: View {
-        @EnvironmentObject var compoundVM: PeriodicCompoundVM
-        var body: some View {
-            if !compoundVM.answer.isEmpty{
-                VStack{
-                    HStack{
-                        Text("Operations: ")
-                            .fontWeight(.semibold)
-                        Spacer()
-                    }
-                    //Depends on each case, of what we want to calculate
-                    ScrollView(.vertical, showsIndicators: false){
-                        Text("\(compoundVM.showCompoundSummary())")
-                    }
-                }
-            } else{
                 Spacer()
             }
         }
@@ -169,14 +145,7 @@ struct PeriodicCompoundInterestView: View {
                     
                     CustomTextField(name: "Number of periods", result: $compoundVM.periods, keyBoardType: .decimalPad)
                     
-                    HStack(spacing: 0){
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(Color("notice-color"))
-                        
-                        Text("Rate and periods must be in the same unit.")
-                            .font(.callout)
-                            .foregroundColor(Color("notice-color").opacity(0.8))
-                    }
+                   
                 }
             }
         }
@@ -192,9 +161,9 @@ struct PeriodicCompoundInterestView: View {
                 
                 CustomTextField(name: "Principal", result: $compoundVM.principal, keyBoardType: .decimalPad)
                 
-                CustomTextField(name: "Rate per year", result: $compoundVM.rate, keyBoardType: .decimalPad)
-                
                 CustomTextField(name: "Accrued", result: $compoundVM.accrued, keyBoardType: .decimalPad)
+                
+                CustomTextField(name: "Rate per year", result: $compoundVM.rate, keyBoardType: .decimalPad)
             }
         }
     }
@@ -213,7 +182,7 @@ struct PeriodicCompoundInterestView: View {
                 
                 CustomTextField(name: "Accrued", result: $compoundVM.accrued, keyBoardType: .decimalPad)
                 
-                CustomTimePickerView(showTimeTypeSheet: showTimeTypeSheet, time: $compoundVM.periods)
+                CustomTextField(name: "Number of periods", result: $compoundVM.periods, keyBoardType: .decimalPad)
                 
             }
         }
@@ -230,9 +199,20 @@ struct PeriodicCompoundInterestView: View {
                 
                 CustomTextField(name: "Accrued", result: $compoundVM.accrued, keyBoardType: .decimalPad)
                 
-                CustomTextField(name: "rate", result: $compoundVM.rate, keyBoardType: .decimalPad)
-                
-                CustomTimePickerView(showTimeTypeSheet: showTimeTypeSheet, time: $compoundVM.periods)
+                VStack(spacing: 5){
+                    CustomTextField(name: "Rate per period", result: $compoundVM.rate, keyBoardType: .decimalPad)
+                    
+                    CustomTextField(name: "Number of periods", result: $compoundVM.periods, keyBoardType: .decimalPad)
+                    
+                    HStack(spacing: 0){
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(Color("notice-color"))
+                        
+                        Text("Rate and periods must be in the same unit.")
+                            .font(.callout)
+                            .foregroundColor(Color("notice-color").opacity(0.8))
+                    }
+                }
             }
         }
     }

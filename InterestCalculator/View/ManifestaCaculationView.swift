@@ -1,5 +1,5 @@
 //
-//  ManifestCalculationView.swift
+//  Manifest.swift
 //  InterestCalculator
 //
 //  Created by Maxim Macari on 10/3/21.
@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ManifestCalculationView: View {
-    
-    @EnvironmentObject var commonDataVM: CommonVm
+   
+    @AppStorage("selectedPupose") var selectedPurpose: Purpose = Purpose.accrued
     
     var body: some View {
         VStack(spacing: 0){
-            Picker(selection: $commonDataVM.selectedPurpose, label: Text(""), content: {
+            Picker(selection: $selectedPurpose, label: Text(""), content: {
                 Text("Accrued").tag(Purpose.accrued) // (principal + interest)
                 Text("Time").tag(Purpose.time)
                 Text("Rate").tag(Purpose.rate)
@@ -21,16 +21,11 @@ struct ManifestCalculationView: View {
             })
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal)
-            .onChange(of: commonDataVM.selectedPurpose, perform: { value in
-                //                TODO cleear only on one input for each select, recover the input if goese back
-                simpleInteresVM.clearInputs()
-                print(value)
-            })
         }
     }
 }
 struct ManifestCalculationView_Previews: PreviewProvider {
     static var previews: some View {
-        ManifestCalculationView()
+        ManifestCalculationView(selectedPurpose: Purpose.accrued)
     }
 }

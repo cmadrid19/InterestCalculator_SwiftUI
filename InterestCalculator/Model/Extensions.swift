@@ -24,17 +24,20 @@ extension UIApplication {
     }
 }
 
-////Measurement for time
-//extension Double {
-//    var hours: Measurement<UnitDuration>{
-//        return Measurement(value: self, unit: UnitDuration.hours)
-//    }
-//    var minutes: Measurement<UnitDuration>{
-//        return Measurement(value: self, unit: UnitDuration.minutes)
-//    }
-//    var seconds: Measurement<UnitDuration>{
-//        return Measurement(value: self, unit: UnitDuration.seconds)
-//    }
-//}
-//
-//
+extension View{
+    func hideKeyboardOnTapAround() -> some View{
+        return self.onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+    }
+    
+    func getWidth() -> CGFloat {
+        return UIScreen.main.bounds.width
+    }
+    
+    func getHeight() -> CGFloat {
+        return UIScreen.main.bounds.height
+    }
+}
+
+

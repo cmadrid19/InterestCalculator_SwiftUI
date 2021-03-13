@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-#warning("TODO: validate textfields, do not allow negative inputs")
 struct CustomTextField: View {
     
     var name: String
@@ -18,11 +17,14 @@ struct CustomTextField: View {
         HStack{
             Text("\(name):")
             TextField("Insert the \(name.lowercased())...", text: $result)
+                .frame(height: 40)
                 .keyboardType(keyBoardType)
         }
-        .padding(15)
+        .padding(.horizontal, 15)
+        .padding(.vertical, 5)
         .background(Color.gray.opacity(0.15))
-        .cornerRadius(15)
+        .mask(RoundedRectangle(cornerRadius: 15))
+        .hideKeyboardOnTapAround()
     }
 }
 

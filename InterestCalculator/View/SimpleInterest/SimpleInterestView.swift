@@ -9,27 +9,27 @@ import SwiftUI
 
 struct SimpleInterestView: View {
     
-    @ObservedObject var simpleInterestVM: SimpleCapitalizationVM = SimpleCapitalizationVM()
+    @EnvironmentObject var simpleVM: SimpleVM
+    @AppStorage("selectedPupose") var selectedPurpose: Purpose = Purpose.accrued
     
     var body: some View {
         VStack(spacing: 10){
             
-            HStack{
-                Text("Calculate simple interest".capitalized)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.black)
-                    .autocapitalization(.sentences)
-                
-                Spacer()
-            }
-            .padding()
-            
+//            HStack{
+//                Text("Simple Interest".capitalized)
+//                    .font(.title)
+//                    .fontWeight(.bold)
+//                    .foregroundColor(.black)
+//                    .autocapitalization(.sentences)
+//                
+//                Spacer()
+//            }
+//            .padding()
             
             ManifestCalculationView()
             
-            VStack{
-                switch simpleInterestVM.selectedPurpose {
+            VStack(spacing: 0){
+                switch selectedPurpose {
                 case Purpose.time:
                     CalculateTimeView()
                 case Purpose.rate:
@@ -40,11 +40,14 @@ struct SimpleInterestView: View {
                     CalculateAccruedView()
                 }
             }
-            .padding(.horizontal)
+            .padding([.horizontal, .top])
+            .onChange(of: simpleVM.selectedPurpose, perform: { _ in
+                simpleVM.clearInputs()
+            })
             
             HStack(spacing: 5){
                 Button(action: {
-                    simpleInterestVM.clearInputs()
+                    simpleVM.clearInputs()
                 }, label: {
                     Text("Clear")
                         .foregroundColor(Color.red.opacity(0.8))
@@ -56,7 +59,7 @@ struct SimpleInterestView: View {
                 
                 
                 Button(action: {
-                    simpleInterestVM.calculate()
+                    simpleVM.calculate()
                     UIApplication.shared.hideKeyboard()
                 }, label: {
                     HStack{
@@ -80,16 +83,14 @@ struct SimpleInterestView: View {
                 
             }
             .padding()
-            
         }
         .frame(width: UIScreen.main.bounds.width, alignment: .leading)
-        .environmentObject(simpleInterestVM)
     }
     
     private struct OperationsView: View {
-        @EnvironmentObject var simpleInteresVM: SimpleCapitalizationVM
+        @EnvironmentObject var simpleVM: SimpleVM
         var body: some View {
-            if !simpleInteresVM.answer.isEmpty{
+            if !simpleVM.answer.isEmpty{
                 VStack{
                     HStack{
                         Text("Operations: ")
@@ -98,7 +99,7 @@ struct SimpleInterestView: View {
                     }
                     //Depends on each case, of what we want to calculate
                     ScrollView(.vertical, showsIndicators: false){
-                        Text("\(simpleInteresVM.showOperations())")
+                        Text("\(simpleVM.showSimpleOperations())")
                     }
                 }
             } else{
@@ -109,10 +110,10 @@ struct SimpleInterestView: View {
     
     private struct AnswerView: View {
         
-        @EnvironmentObject var simpleInteresVM: SimpleCapitalizationVM
+        @EnvironmentObject var simpleVM: SimpleVM
         
         var body: some View{
-            if !simpleInteresVM.answer.isEmpty{
+            if !simpleVM.answer.isEmpty{
                 VStack(alignment: HorizontalAlignment.center, spacing: 0){
                     
                     HStack{
@@ -121,27 +122,30 @@ struct SimpleInterestView: View {
                         
                         Spacer()
                     }
-                    switch simpleInteresVM.selectedPurpose {
-                    case Purpose.time:
-                        Text("T = \(simpleInteresVM.answer)")
-                            .foregroundColor(Color.black)
-                            .fontWeight(.semibold)
-                    case Purpose.rate:
-                        Text("R = \(simpleInteresVM.answer)/year")
-                    case Purpose.principal:
-                        Text("Co = \(simpleInteresVM.answer)")
-                    default:
-                        Text("Cn = \(simpleInteresVM.answer)")
-                            .foregroundColor(Color.black)
-                            .fontWeight(.semibold)
-                        
-                        if let interest = simpleInteresVM.showInterest(){
-                            if !interest.isEmpty{
-                                Text("I = Cn - Co = \(interest)")
-                                    .fontWeight(.semibold)
+                    
+                    VStack(spacing: 0){
+                        switch simpleVM.selectedPurpose {
+                        case Purpose.time:
+                            Text("T = \(simpleVM.answer)")
+                                .fontWeight(.semibold)
+                        case Purpose.rate:
+                            Text("R = \(simpleVM.answer)/year")
+                                .fontWeight(.semibold)
+                        case Purpose.principal:
+                            Text("Co = \(simpleVM.answer)")
+                                .fontWeight(.semibold)
+                        default:
+                            Text("Cn = \(simpleVM.answer)")
+                                .fontWeight(.semibold)
+                            if let interest = simpleVM.showInterest(){
+                                if !interest.isEmpty{
+                                    Text("I = Cn - Co = \(interest)")
+                                        .fontWeight(.semibold)
+                                }
                             }
                         }
                     }
+                    .foregroundColor(Color.black)
                 }
             }
             else {
@@ -153,34 +157,34 @@ struct SimpleInterestView: View {
     private struct CalculateAccruedView: View {
         
         @State var showTimeTypeSheet: Bool = false
-        @EnvironmentObject var simpleInteresVM: SimpleCapitalizationVM
+        @EnvironmentObject var simpleVM: SimpleVM
         
         var body: some View {
             VStack(spacing: 5){
                 Text("Where \(Text("Cn = Co(1 + rt)").fontWeight(.semibold))")
                 
-                CustomTextField(name: "Principal", result: $simpleInteresVM.principal, keyBoardType: .decimalPad)
+                CustomTextField(name: "Principal", result: $simpleVM.principal, keyBoardType: .decimalPad)
                 
-                CustomTextField(name: "Rate per year", result: $simpleInteresVM.rate, keyBoardType: .decimalPad)
+                CustomTextField(name: "Rate per year", result: $simpleVM.rate, keyBoardType: .decimalPad)
                 
-                CustomTimePickerView(showTimeTypeSheet: showTimeTypeSheet, time: $simpleInteresVM.time)
+                CustomTimePickerView(showTimeTypeSheet: showTimeTypeSheet, time: $simpleVM.time)
             }
         }
     }
     
     private struct CalculateTimeView: View {
         
-        @EnvironmentObject var simpleInteresVM: SimpleCapitalizationVM
+        @EnvironmentObject var simpleVM: SimpleVM
         
         var body: some View {
             VStack(spacing: 5){
                 Text("Where \(Text("Cn = (1/r)(Cn/Co - 1)").fontWeight(.semibold))")
                 
-                CustomTextField(name: "Principal", result: $simpleInteresVM.principal, keyBoardType: .decimalPad)
+                CustomTextField(name: "Principal", result: $simpleVM.principal, keyBoardType: .decimalPad)
                 
-                CustomTextField(name: "Rate per year", result: $simpleInteresVM.rate, keyBoardType: .decimalPad)
+                CustomTextField(name: "Rate per year", result: $simpleVM.rate, keyBoardType: .decimalPad)
                 
-                CustomTextField(name: "Accrued", result: $simpleInteresVM.accrued, keyBoardType: .decimalPad)
+                CustomTextField(name: "Accrued", result: $simpleVM.accrued, keyBoardType: .decimalPad)
                 
             }
         }
@@ -189,17 +193,17 @@ struct SimpleInterestView: View {
     private struct CalculateRateView: View {
         
         @State var showTimeTypeSheet: Bool = false
-        @EnvironmentObject var simpleInteresVM: SimpleCapitalizationVM
+        @EnvironmentObject var simpleVM: SimpleVM
         
         var body: some View {
             VStack(spacing: 5){
-                Text("Where \(Text("Cn = (1/t)(Cn/Co - 1)").fontWeight(.semibold))")
+                Text("Where \(Text("r = (1/t)(Cn/Co - 1)").fontWeight(.semibold))")
                 
-                CustomTextField(name: "Principal", result: $simpleInteresVM.principal, keyBoardType: .decimalPad)
+                CustomTextField(name: "Principal", result: $simpleVM.principal, keyBoardType: .decimalPad)
                 
-                CustomTextField(name: "Accrued", result: $simpleInteresVM.accrued, keyBoardType: .decimalPad)
+                CustomTextField(name: "Accrued", result: $simpleVM.accrued, keyBoardType: .decimalPad)
                 
-                CustomTimePickerView(showTimeTypeSheet: showTimeTypeSheet, time: $simpleInteresVM.time)
+                CustomTimePickerView(showTimeTypeSheet: showTimeTypeSheet, time: $simpleVM.time)
                 
             }
         }
@@ -208,17 +212,17 @@ struct SimpleInterestView: View {
     private struct CalculatePrincipalView: View {
         
         @State var showTimeTypeSheet: Bool = false
-        @EnvironmentObject var simpleInteresVM: SimpleCapitalizationVM
+        @EnvironmentObject var simpleVM: SimpleVM
         
         var body: some View {
             VStack(spacing: 5){
                 Text("Where \(Text("Co = Cn / (1 + rt)").fontWeight(.semibold))")
                 
-                CustomTextField(name: "Accrued", result: $simpleInteresVM.accrued, keyBoardType: .decimalPad)
+                CustomTextField(name: "Accrued", result: $simpleVM.accrued, keyBoardType: .decimalPad)
                 
-                CustomTextField(name: "rate", result: $simpleInteresVM.rate, keyBoardType: .decimalPad)
+                CustomTextField(name: "rate", result: $simpleVM.rate, keyBoardType: .decimalPad)
                 
-                CustomTimePickerView(showTimeTypeSheet: showTimeTypeSheet, time: $simpleInteresVM.time)
+                CustomTimePickerView(showTimeTypeSheet: showTimeTypeSheet, time: $simpleVM.time)
             }
         }
     }
