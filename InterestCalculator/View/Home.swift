@@ -68,13 +68,13 @@ struct Home: View {
                 .highPriorityGesture(DragGesture().onEnded({self.handleSwipe(translation: $0.translation.width)}))
                 
                 NavigationView{
-                    LoanView()
-                        .navigationBarTitle(Text("Loans"), displayMode: .automatic)
+                    RentView()
+                        .navigationBarTitle(Text("Rents"), displayMode: .automatic)
                         .navigationBarItems(trailing:
                                                 navigationBarButton(showingSheet: $showMoreInfo)
                         )
                         .sheet(isPresented: $showMoreInfo){
-                            InfoSheetView(infoSheet: loanInfoSheet)
+                            InfoSheetView(infoSheet: rentInfoSheet)
                         }
                 }
                 .tabItem {
@@ -161,23 +161,18 @@ struct Home: View {
                 }
             }, label: {
                 HStack{
-                    Text("More info")
-                        .foregroundColor(Color.white)
-                    
                     Image(systemName: "info.circle")
                         .resizable()
                         .frame(width: 20, height: 20)
                         .foregroundColor(Color.white)
                         .scaledToFill()
                 }
-                .padding(10)
+                .padding(6)
                 .background(Color.blue)
-                .cornerRadius(15)
+                .clipShape(Circle())
             })
         }
     }
-    
-    
     
     private func handleSwipe(translation: CGFloat) {
         if translation > minDragTranslation && homeTab.rawValue > 0 {

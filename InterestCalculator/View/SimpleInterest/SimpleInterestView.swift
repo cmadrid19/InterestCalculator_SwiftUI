@@ -13,78 +13,70 @@ struct SimpleInterestView: View {
     @AppStorage("selectedPupose") var selectedPurpose: Purpose = Purpose.accrued
     
     var body: some View {
-        VStack(spacing: 10){
-            
-//            HStack{
-//                Text("Simple Interest".capitalized)
-//                    .font(.title)
-//                    .fontWeight(.bold)
-//                    .foregroundColor(.black)
-//                    .autocapitalization(.sentences)
-//                
-//                Spacer()
-//            }
-//            .padding()
-            
-            ManifestCalculationView()
-            
-            VStack(spacing: 0){
-                switch selectedPurpose {
-                case Purpose.time:
-                    CalculateTimeView()
-                case Purpose.rate:
-                    CalculateRateView()
-                case Purpose.principal:
-                    CalculatePrincipalView()
-                default:
-                    CalculateAccruedView()
+        ScrollView {
+            VStack(spacing: 10){
+                
+                ManifestCalculationView()
+                
+                VStack(spacing: 0){
+                    switch selectedPurpose {
+                    case Purpose.time:
+                        CalculateTimeView()
+                    case Purpose.rate:
+                        CalculateRateView()
+                    case Purpose.principal:
+                        CalculatePrincipalView()
+                    default:
+                        CalculateAccruedView()
+                    }
                 }
-            }
-            .padding([.horizontal, .top])
-            .onChange(of: simpleVM.selectedPurpose, perform: { _ in
-                simpleVM.clearInputs()
-            })
-            
-            HStack(spacing: 5){
-                Button(action: {
+                .padding([.horizontal, .top])
+                .onChange(of: simpleVM.selectedPurpose, perform: { _ in
                     simpleVM.clearInputs()
-                }, label: {
-                    Text("Clear")
-                        .foregroundColor(Color.red.opacity(0.8))
+                })
+                
+                HStack(spacing: 5){
+                    Button(action: {
+                        simpleVM.clearInputs()
+                    }, label: {
+                        Text("Clear")
+                            .foregroundColor(Color.red.opacity(0.8))
+                            .frame(width: UIScreen.main.bounds.width * 0.3)
+                            .padding()
+                            .background(Color.gray.opacity(0.15))
+                            .cornerRadius(15)
+                    })
+                    
+                    
+                    Button(action: {
+                        simpleVM.calculate()
+                        UIApplication.shared.hideKeyboard()
+                    }, label: {
+                        HStack{
+                            Text("Calculate")
+                        }
                         .frame(width: UIScreen.main.bounds.width * 0.3)
                         .padding()
                         .background(Color.gray.opacity(0.15))
                         .cornerRadius(15)
-                })
+                        
+                    })
+                    .buttonStyle(DefaultButtonStyle())
+                }
                 
-                
-                Button(action: {
-                    simpleVM.calculate()
-                    UIApplication.shared.hideKeyboard()
-                }, label: {
-                    HStack{
-                        Text("Calculate")
-                    }
-                    .frame(width: UIScreen.main.bounds.width * 0.3)
-                    .padding()
-                    .background(Color.gray.opacity(0.15))
-                    .cornerRadius(15)
+                VStack(spacing: 5){
+                    //Answer
+                    AnswerView()
                     
-                })
-                .buttonStyle(DefaultButtonStyle())
+                    //Operations
+                    OperationsView()
+                    
+                }
+                .padding()
             }
-            
-            VStack(spacing: 5){
-                //Answer
-                AnswerView()
-                
-                //Operations
-                OperationsView()
-                
-            }
-            .padding()
+            .frame(width: UIScreen.main.bounds.width, alignment: .leading)
         }
-        .frame(width: UIScreen.main.bounds.width, alignment: .leading)
+        .alert(item: $simpleVM.alertType) { $0.alert }
     }
     
     private struct OperationsView: View {
@@ -98,9 +90,9 @@ struct SimpleInterestView: View {
                         Spacer()
                     }
                     //Depends on each case, of what we want to calculate
-                    ScrollView(.vertical, showsIndicators: false){
-                        Text("\(simpleVM.showSimpleOperations())")
-                    }
+                    
+                    Text("\(simpleVM.showSimpleOperations())")
+                    
                 }
             } else{
                 Spacer()

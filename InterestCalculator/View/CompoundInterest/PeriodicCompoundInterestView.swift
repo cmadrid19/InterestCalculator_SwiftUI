@@ -15,19 +15,6 @@ struct PeriodicCompoundInterestView: View {
     var body: some View {
         VStack(spacing: 10){
             
-//            HStack{
-//                Text("Periodic Compound Interest".capitalized)
-//                    .font(.title)
-//                    .fontWeight(.bold)
-//                    .minimumScaleFactor(0.9)
-//                    .lineLimit(1)
-//                    .foregroundColor(.black)
-//                    .autocapitalization(.sentences)
-//                
-//                Spacer()
-//            }
-//            .padding()
-            
             ManifestCalculationView()
             
             VStack(spacing: 10){

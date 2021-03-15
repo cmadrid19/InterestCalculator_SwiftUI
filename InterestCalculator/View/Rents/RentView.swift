@@ -1,5 +1,5 @@
 //
-//  LoanView.swift
+//  RentView.swift
 //  InterestCalculator
 //
 //  Created by Maxim Macari on 9/3/21.
@@ -7,18 +7,14 @@
 
 import SwiftUI
 
-struct LoanView: View {
+struct RentView: View {
     var body: some View {
         VStack{
-            LoanTypePickerView()
+            RentTypePickerView()
             
             Spacer()
         }
     }
-    
-    
-    
-    
 }
 
 
@@ -26,17 +22,18 @@ let durations: [String] = ["temporary", "perpetual"]
 let payMoments: [String] = ["inmediate", "deferred", "anticipated"]
 let modifiers: [String] = ["prepayable", "postpayable"]
 
-struct LoanView_Previews: PreviewProvider {
+struct RentView_Previews: PreviewProvider {
     static var previews: some View {
-        LoanView()
+        RentView()
     }
 }
 
-private struct LoanTypePickerView: View{
+private struct RentTypePickerView: View{
     
-    @State var selectedDuration: String = "temporary"
-    @State var selectedPayMoment: String = "deferred"
-    @State var selectedModifier: String = "pospayable"
+    @State var selectedDuration: RentType.Duration = RentType.Duration.temporary
+    @State var selectedPayCondition: RentType.PayCondition = RentType.PayCondition.deferred
+    @State var selectedPayMoment: RentType.PayMoment  = RentType.PayMoment.prepayable
+    
     @State var showingEdit: Bool = false
     @State var offset: CGFloat = 0
     
@@ -73,7 +70,7 @@ private struct LoanTypePickerView: View{
                 
                 HStack(alignment: .center, spacing: 5){
                     
-                    Text("\(selectedDuration)")
+                    Text("\(selectedDuration.rawValue)")
                         .frame(minWidth: getWidth() * 0.25)
                         .padding(5)
                         .background(getIndex() < 1 ? Color.blue.opacity(0.5) : Color.clear)
@@ -81,7 +78,7 @@ private struct LoanTypePickerView: View{
                     
                     Image(systemName: "chevron.right")
                     
-                    Text("\(selectedPayMoment)")
+                    Text("\(selectedPayCondition.rawValue)")
                         .frame(minWidth: getWidth() * 0.25)
                         .padding(5)
                         .background(getIndex() == 1 ? Color.blue.opacity(0.5) : Color.clear)
@@ -89,7 +86,7 @@ private struct LoanTypePickerView: View{
                     
                     Image(systemName: "chevron.right")
                     
-                    Text("\(selectedModifier)")
+                    Text("\(selectedPayMoment.rawValue)")
                         .frame(minWidth: getWidth() * 0.25)
                         .padding(5)
                         .background(getIndex() > 1 ? Color.blue.opacity(0.5) : Color.clear)
@@ -103,9 +100,10 @@ private struct LoanTypePickerView: View{
                 
                 ScrollView {
                     TabView{
-                        Picker(selection: self.$selectedDuration, label: Text("Numbers")) {
-                            ForEach(durations, id: \.self) { duration in
-                                Text("\(duration)")
+                        Picker(selection: self.$selectedDuration, label: Text("Durations")) {
+                            
+                            ForEach(RentType.Duration.allCases, id: \.self) { duration in
+                                Text("\(duration.rawValue)")
                                     .font(.callout)
                             }
                         }
@@ -127,16 +125,16 @@ private struct LoanTypePickerView: View{
                             ,alignment: .leading
                         )
                         
-                        Picker(selection: self.$selectedPayMoment, label: Text("Numbers")) {
-                            ForEach(payMoments, id: \.self) { moment in
-                                Text("\(moment)")
+                        Picker(selection: self.$selectedPayMoment, label: Text("Pay moments")) {
+                            ForEach(RentType.PayCondition.allCases, id:\.self) { modifier in
+                                Text("\(modifier.rawValue)")
                                     .font(.callout)
                             }
                         }
                         
-                        Picker("a", selection: self.$selectedModifier) {
-                            ForEach(modifiers, id: \.self) { modifier in
-                                Text("\(modifier)")
+                        Picker(selection: self.$selectedPayCondition, label: Text("Pay conditions")) {
+                            ForEach(RentType.PayMoment.allCases, id: \.self) { moment in
+                                Text("\(moment.rawValue)")
                                     .font(.callout)
                             }
                         }
@@ -184,7 +182,6 @@ private struct LoanTypePickerView: View{
         //total = 22
         
         return CGFloat(22 * getIndex())
-        
     }
 }
 

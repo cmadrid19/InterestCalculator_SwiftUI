@@ -16,7 +16,8 @@ struct CustomTextField: View {
     var body: some View {
         HStack{
             Text("\(name):")
-            TextField("Insert the \(name.lowercased())...", text: $result)
+            TextField("Insert the \(name.lowercased())...", text:Binding<String>(
+                        get: {self.result}, set: {self.result = $0}))
                 .frame(height: 40)
                 .keyboardType(keyBoardType)
         }

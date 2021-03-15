@@ -13,71 +13,35 @@ class SimpleVM: ObservableObject {
     @Published var principal: String = ""
     @Published var accrued: String = ""
     @Published var rate: String = ""
+    
+    @Published var simpleInterest: Simple? = nil
+    
     @Published var answer: String = ""
     
-    var simpleModel: Simple = Simple(time: Double.zero, principal: Double.zero, rate: Double.zero, accrued: Double.zero)
+    @Published var alertType: AlertType? = nil
     
     @AppStorage("timeType") var selectedTimeType: TimeTypes = TimeTypes.years
     @AppStorage("selectedPupose") var selectedPurpose: Purpose = Purpose.accrued
     
-    public var principalDoble: Double {
-        return Double(self.principal) ?? Double.zero
+    private var rateString: String {
+        return String(self.simpleInterest?.rate ?? Double.zero)
     }
     
-    public var accruedDouble: Double{
-        return Double(self.accrued) ?? Double.zero
+    private var rateDecimalString: String {
+        return String(self.simpleInterest?.rateDecimal ?? Double.zero)
     }
     
-    public var timeDouble: Double{
-        return Double(self.time.replacingOccurrences(of: ",", with: ".")) ?? Double.zero
+    private var principalString: String {
+        return self.simpleInterest?.principal?.intoLocaleCurrency ?? String(Double.zero)
     }
-    
-    public var ratePercentDouble: Double{
-        return Double(self.rate.replacingOccurrences(of: ",", with: ".")) ?? Double.zero
+    private var accruedString: String {
+        return self.simpleInterest?.accrued?.intoLocaleCurrency ?? String(Double.zero)
     }
-    
-    public var rateDecimalDouble: Double{
-        return self.ratePercentDouble / 100
+    private var timeYearsString: String{
+        return String(self.simpleInterest?.timeIntoYears ?? Double.zero)
     }
-    
-    //putting time into years for simplicity...
-    //if its day weeeks or monthss.. we need to convert it to years
-    public func convertTimeToYears(time: Double) -> Double{
-        var years: Double = Double.zero
-        switch self.selectedTimeType {
-        case .months:
-            years = time / 12
-        case .quarters:
-            years = time / 4
-        case .threeHundrednSixty:
-            years = time / 360
-        case .threeHundrednSixtyFive:
-            years = time / 365
-        case .weaks:
-            years = time / 52
-        default: //Years
-            years = time
-        }
-        return years
-    }
-    
-    public func convertToAnnualRate(distinctRate: Double) -> Double{
-        var annualRate: Double = Double.zero
-        switch self.selectedTimeType {
-        case .months:
-            annualRate = distinctRate * 12
-        case .quarters:
-            annualRate = distinctRate * 4
-        case .threeHundrednSixty:
-            annualRate = distinctRate * 360
-        case .threeHundrednSixtyFive:
-            annualRate = distinctRate * 365
-        case .weaks:
-            annualRate = distinctRate * 52
-        default: //Years
-            annualRate = distinctRate
-        }
-        return annualRate
+    private var timeString: String{
+        return String(self.simpleInterest?.time ?? Double.zero)
     }
     
     func clearInputs(){
@@ -94,12 +58,12 @@ class SimpleVM: ObservableObject {
         if let Cn = Double(accrued), let Co = Double(principal){
             return String((Cn - Co).intoLocaleCurrency)
         } else {
-            print("insufficient data")
+            alertType = AlertType.singleButton(title: "Error", message: "Insuficient data inputs.", dismissButton: Alert.Button.destructive(Text("Ok")))
             return ""
         }
     }
     
-    public func transformToYearsPartitionString() -> String {
+    private func transformToYearsPartitionString() -> String {
         var secondStep = ""
         switch self.selectedTimeType {
         case .months:
@@ -120,90 +84,65 @@ class SimpleVM: ObservableObject {
     
     
     func calculate() {
+        
+        self.simpleInterest = Simple(time: Double(self.time.replacingOccurrences(of: ",", with: ".")) ?? Double.zero,
+                                     principal: Double(self.principal) ?? Double.zero,
+                                     rate: Double(self.rate.replacingOccurrences(of: ",", with: ".")) ?? Double.zero,
+                                     accrued: Double(self.accrued) ?? Double.zero)
+        
         switch selectedPurpose {
         case Purpose.accrued:
-            self.calculateAccrued()
+            guard !(self.principal.isEmpty && self.rate.isEmpty && self.time.isEmpty) else {
+                alertType = AlertType.singleButton(title: "Error", message: "Insuficient data inputs. inputs", dismissButton: Alert.Button.destructive(Text("Ok")))
+                return
+            }
+            self.answer = self.simpleInterest?.calculateAccrued().intoLocaleCurrency ?? ""
         case Purpose.time:
-            self.calculateTime()
+            guard !(self.principal.isEmpty || self.rate.isEmpty || self.time.isEmpty) else {
+                alertType = AlertType.singleButton(title: "Error", message: "Insuficient data inputs.", dismissButton: Alert.Button.destructive(Text("Ok")))
+                return
+            }
+            guard (self.simpleInterest?.principal ?? Double.zero < self.simpleInterest?.accrued ?? Double.zero) else {
+                alertType = AlertType.singleButton(title: "Error", message: "Accrued must be grater than principal", dismissButton: Alert.Button.destructive(Text("Ok")))
+                return
+            }
+            if let time = self.simpleInterest?.calculateTime(){
+                self.answer = "\(MyTime(years: time).showTimeString())"
+            }
         case Purpose.rate:
-            self.calculateRate()
+            guard !(self.principal.isEmpty || self.accrued.isEmpty || self.time.isEmpty) else {
+                alertType = AlertType.singleButton(title: "Error", message: "Insuficient data inputs.", dismissButton: Alert.Button.destructive(Text("Ok")))
+                return
+            }
+            guard (self.simpleInterest?.principal ?? Double.zero < self.simpleInterest?.accrued ?? Double.zero) else {
+                alertType = AlertType.singleButton(title: "Error", message: "Accrued must be grater than principal", dismissButton: Alert.Button.destructive(Text("Ok")))
+                return
+            }
+            self.answer = String("\(self.simpleInterest?.calculateRate())%")
         case Purpose.principal:
-            self.calculatePrincipal()
+            guard !(self.rate.isEmpty && self.accrued.isEmpty && self.time.isEmpty) else {
+                alertType = AlertType.singleButton(title: "Error", message: "Insuficient data inputs.", dismissButton: Alert.Button.destructive(Text("Ok")))
+                return
+            }
+            self.answer = self.simpleInterest?.calculatePrincipal().intoLocaleCurrency ?? ""
         }
-    }
-    
-    private func calculateAccrued(){
-        guard !(self.principal.isEmpty && self.rate.isEmpty && self.time.isEmpty) else {
-            print("insufficient data inputs")
-            return
-        }
-        
-        let rateTime = self.ratePercentDouble * self.convertTimeToYears(time: self.timeDouble)
-        self.accrued = String(self.principalDoble * (1 + Double(rateTime)))
-        self.answer = "\(self.accruedDouble.intoLocaleCurrency)"
-        
-    }
-    
-    private func calculateTime(){
-        guard !(self.principal.isEmpty && self.rate.isEmpty && self.time.isEmpty) else {
-            print("insufficient data inputs")
-            return
-        }
-        
-        guard (self.principalDoble < self.accruedDouble) else {
-            print("Accrued must be grater than principal")
-            return
-        }
-        
-        let auxTimeYears = Double(1 / self.rateDecimalDouble) * Double((self.accruedDouble / self.principalDoble) - 1)
-        self.time = String(auxTimeYears)
-        self.answer = "\(MyTime(years: auxTimeYears).showTimeString())"
-        
-    }
-    
-    private func calculateRate(){
-        
-        guard !(self.principal.isEmpty && self.accrued.isEmpty && self.time.isEmpty) else {
-            print("insufficient data inputs")
-            return
-        }
-        
-        guard (self.principal < self.accrued) else {
-            print("Accrued must be grater than principal")
-            return
-        }
-        var auxRate = (1/self.timeDouble) * ((self.accruedDouble / self.principalDoble) - 1) // this is decimal rate, not anual rate
-        auxRate = auxRate * 100
-        self.rate = String(self.convertToAnnualRate(distinctRate: auxRate))
-        self.answer = "\(self.rate)%"
-    }
-    
-    private func calculatePrincipal(){
-        guard !(self.rate.isEmpty && self.accrued.isEmpty && self.time.isEmpty) else {
-            print("insufficient data inputs")
-            return
-        }
-        let auxTime = self.convertTimeToYears(time: Double(self.timeDouble))
-        self.principal = String(self.accruedDouble / (1 + (self.rateDecimalDouble * auxTime)))
-        self.answer = "\(self.principalDoble.intoLocaleCurrency)"
-        
     }
     
     func showSimpleOperations() -> String {
         var steps: String = ""
         switch self.selectedPurpose {
         case .time:
-            steps = "First, converting percent to decimal, r = \(self.rate)%/100 = \(self.rateDecimalDouble) per year, then, solving our equation. t = (1/(\(self.rateDecimalDouble))((\(self.accrued)/\(self.principal) - 1) = \(self.time). The time required to get a total amount, principal plus interest, of \(self.accruedDouble.intoLocaleCurrency) from simple interest on a principal of \( Double(self.principalDoble).intoLocaleCurrency) at an interest rate of \(self.rate)% per year is (\(self.answer)). "
+            steps = "First, converting percent to decimal, r = \(self.rate)%/100 = \(self.rateDecimalString) per year, then, solving our equation. t = (1/(\(self.rateDecimalString))((\(self.accrued)/\(self.principal) - 1) = \(self.time). The time required to get a total amount, principal plus interest, of \(self.principalString) from simple interest on a principal of \(self.principalString) at an interest rate of \(self.rate)% per year is (\(self.answer)). "
         case .rate:
-            steps = "Solving our equation: r = (1/\(self.time)((\(self.accrued)/\(self.principal) - 1) = \(self.rate). Converting r decimal to percentage, R = \(self.rate) * 100 = \(self.ratePercentDouble * 100)%/year. The interest rate required to get a total amount, principal plus interest, of \(self.accruedDouble.intoLocaleCurrency) from simple interest on a principal of \(self.principalDoble.intoLocaleCurrency) over \(self.time) \(self.selectedTimeType.rawValue) is \(self.answer) per year. "
+            steps = "Solving our equation: r = (1/\(self.time)((\(self.accrued)/\(self.principal) - 1) = \(self.rate). Converting r decimal to percentage, R = \(self.rate) * 100 = \(self.rateString)%/year. The interest rate required to get a total amount, principal plus interest, of \(self.principalString) from simple interest on a principal of \(self.principalString) over \(self.time) \(self.selectedTimeType.rawValue) is \(self.answer) per year. "
         case .principal:
-            steps = "First, converting R percent to r a decimal, r = \(self.ratePercentDouble)/100 = \(self.rateDecimalDouble) per year. Solving our equation:, P = \(self.accruedDouble) / ( 1 + (\(self.rateDecimalDouble) × \(self.convertTimeToYears(time: Double(self.timeDouble))) = \(self.answer). The principal investment required to get a total amount, principal plus interest, of \(self.accruedDouble.intoLocaleCurrency) from simple interest at a rate of \(self.ratePercentDouble)% per year for \(self.timeDouble) \(self.selectedTimeType.rawValue) is \(self.principalDoble.intoLocaleCurrency)."
+            steps = "First, converting R percent to r a decimal, r = \(self.rateString)/100 = \( self.rateDecimalString) per year. Solving our equation:, P = \(self.accruedString) / ( 1 + (\( self.rateDecimalString) × \(self.timeYearsString) = \(self.answer). The principal investment required to get a total amount, principal plus interest, of \(self.principalString) from simple interest at a rate of \(self.rateString)% per year for \(self.timeString) \(self.selectedTimeType.rawValue) is \(self.principalString)."
         default: //accrued
-            steps = "First, converting R percent to decimal r = \(self.rate)%/100 = \(self.rateDecimalDouble) per year. "
+            steps = "First, converting R percent to decimal r = \(self.rate)%/100 = \(self.rateDecimalString) per year. "
             if self.selectedTimeType != TimeTypes.years {
-                steps += "Putting time into years for simplicity, \(self.time) \(self.selectedTimeType.rawValue) / (\(self.transformToYearsPartitionString())) = \(self.convertTimeToYears(time: self.timeDouble)) years. "
+                steps += "Putting time into years for simplicity, \(self.time) \(self.selectedTimeType.rawValue) / (\(self.transformToYearsPartitionString())) = \(self.timeYearsString) years. "
             }
-            steps += "Solving our equation: Co=\(self.principal)(1 + (\(self.rateDecimalDouble) × \(self.convertTimeToYears(time: self.timeDouble)))) = \(self.answer)"
+            steps += "Solving our equation: Co=\(self.principal)(1 + (\(self.rateDecimalString) × \(self.timeYearsString))) = \(self.answer)"
         }
         return steps
     }

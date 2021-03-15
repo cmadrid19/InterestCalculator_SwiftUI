@@ -15,7 +15,8 @@
 		9E18972325FAC9B500AF9591 /* InfoSheetDatum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18972225FAC9B500AF9591 /* InfoSheetDatum.swift */; };
 		9E18972625FAF31000AF9591 /* Simple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18972525FAF31000AF9591 /* Simple.swift */; };
 		9E18972925FAF31900AF9591 /* Compound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18972825FAF31900AF9591 /* Compound.swift */; };
-		9E18972C25FAF34400AF9591 /* Loan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18972B25FAF34400AF9591 /* Loan.swift */; };
+		9E18972C25FAF34400AF9591 /* Rent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18972B25FAF34400AF9591 /* Rent.swift */; };
+		9E7C4B8B25FF8DAA00352223 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C4B8A25FF8DAA00352223 /* AlertType.swift */; };
 		9EED970025F66C7C0062CC77 /* InterestCalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED96FF25F66C7C0062CC77 /* InterestCalculatorApp.swift */; };
 		9EED970225F66C7C0062CC77 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED970125F66C7C0062CC77 /* ContentView.swift */; };
 		9EED970425F66C7E0062CC77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EED970325F66C7E0062CC77 /* Assets.xcassets */; };
@@ -25,7 +26,7 @@
 		9EED971A25F6774F0062CC77 /* PeriodicCompoundInterestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED971925F6774F0062CC77 /* PeriodicCompoundInterestView.swift */; };
 		9EED972425F7A75E0062CC77 /* CustomTimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED972325F7A75E0062CC77 /* CustomTimePickerView.swift */; };
 		9EED972725F7A77D0062CC77 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED972625F7A77D0062CC77 /* CustomTextField.swift */; };
-		9EED972E25F7AFC50062CC77 /* LoanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED972D25F7AFC50062CC77 /* LoanView.swift */; };
+		9EED972E25F7AFC50062CC77 /* RentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED972D25F7AFC50062CC77 /* RentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +38,8 @@
 		9E18972225FAC9B500AF9591 /* InfoSheetDatum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSheetDatum.swift; sourceTree = "<group>"; };
 		9E18972525FAF31000AF9591 /* Simple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simple.swift; sourceTree = "<group>"; };
 		9E18972825FAF31900AF9591 /* Compound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compound.swift; sourceTree = "<group>"; };
-		9E18972B25FAF34400AF9591 /* Loan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loan.swift; sourceTree = "<group>"; };
+		9E18972B25FAF34400AF9591 /* Rent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rent.swift; sourceTree = "<group>"; };
+		9E7C4B8A25FF8DAA00352223 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		9EED96FC25F66C7C0062CC77 /* InterestCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterestCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EED96FF25F66C7C0062CC77 /* InterestCalculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestCalculatorApp.swift; sourceTree = "<group>"; };
 		9EED970125F66C7C0062CC77 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -49,7 +51,7 @@
 		9EED971925F6774F0062CC77 /* PeriodicCompoundInterestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicCompoundInterestView.swift; sourceTree = "<group>"; };
 		9EED972325F7A75E0062CC77 /* CustomTimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimePickerView.swift; sourceTree = "<group>"; };
 		9EED972625F7A77D0062CC77 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		9EED972D25F7AFC50062CC77 /* LoanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanView.swift; sourceTree = "<group>"; };
+		9EED972D25F7AFC50062CC77 /* RentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,10 +108,11 @@
 			isa = PBXGroup;
 			children = (
 				9EED971225F66C9E0062CC77 /* Home.swift */,
-				9EED972C25F7AF950062CC77 /* Loans */,
+				9EED972C25F7AF950062CC77 /* Rents */,
 				9EED972B25F7AF7D0062CC77 /* CompoundInterest */,
 				9EED972225F7A7440062CC77 /* SimpleInterest */,
 				9E18971525F964CC00AF9591 /* ManifestaCaculationView.swift */,
+				9E7C4B8A25FF8DAA00352223 /* AlertType.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,7 +134,7 @@
 				9E18972225FAC9B500AF9591 /* InfoSheetDatum.swift */,
 				9E18972525FAF31000AF9591 /* Simple.swift */,
 				9E18972825FAF31900AF9591 /* Compound.swift */,
-				9E18972B25FAF34400AF9591 /* Loan.swift */,
+				9E18972B25FAF34400AF9591 /* Rent.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -154,12 +157,12 @@
 			path = CompoundInterest;
 			sourceTree = "<group>";
 		};
-		9EED972C25F7AF950062CC77 /* Loans */ = {
+		9EED972C25F7AF950062CC77 /* Rents */ = {
 			isa = PBXGroup;
 			children = (
-				9EED972D25F7AFC50062CC77 /* LoanView.swift */,
+				9EED972D25F7AFC50062CC77 /* RentView.swift */,
 			);
-			path = Loans;
+			path = Rents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,7 +238,7 @@
 				9EED970225F66C7C0062CC77 /* ContentView.swift in Sources */,
 				9EED971325F66C9E0062CC77 /* Home.swift in Sources */,
 				9EED971A25F6774F0062CC77 /* PeriodicCompoundInterestView.swift in Sources */,
-				9EED972E25F7AFC50062CC77 /* LoanView.swift in Sources */,
+				9EED972E25F7AFC50062CC77 /* RentView.swift in Sources */,
 				9EED971725F670DF0062CC77 /* SimpleInterestView.swift in Sources */,
 				9E18970025F81BF200AF9591 /* TimeTypes.swift in Sources */,
 				9EED970025F66C7C0062CC77 /* InterestCalculatorApp.swift in Sources */,
@@ -245,8 +248,9 @@
 				9E18972625FAF31000AF9591 /* Simple.swift in Sources */,
 				9E18972325FAC9B500AF9591 /* InfoSheetDatum.swift in Sources */,
 				9E18970425F82F4600AF9591 /* Extensions.swift in Sources */,
+				9E7C4B8B25FF8DAA00352223 /* AlertType.swift in Sources */,
 				9E18972925FAF31900AF9591 /* Compound.swift in Sources */,
-				9E18972C25FAF34400AF9591 /* Loan.swift in Sources */,
+				9E18972C25FAF34400AF9591 /* Rent.swift in Sources */,
 				9EED972725F7A77D0062CC77 /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

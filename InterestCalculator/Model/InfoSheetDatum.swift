@@ -41,4 +41,19 @@ var periodicCompoundInfoSheet: SheetData = SheetData(definition: "Using the comp
                                                 
                                             ])
 
-var loanInfoSheet: SheetData = SheetData(definition: "", legends: [""], notes: [""])
+var rentInfoSheet: SheetData = SheetData(definition: "What do Payroll, mortgages and mutual funds have in common? They are rents. What will we do with the rents? We will be interested in comparing them, for this we will calculate their present value (PV) and their future value (FV)",
+                                         legends: [
+                                            "CV: value of an expected income stream determined as of the date of valuation",
+                                            "FV: The future value is the value of a given amount of money at a certain point in the future if it earns a rate of interest.",
+                                            "R = Rate of Interest per period in percent",
+                                            "r = Rate of Interest per period as a decimal",
+                                            "t = Number of Periods",
+                                            "deferred = put a payment to a later time"
+                                         ],
+                                         notes: [
+                                            "We will use the compound discount or compound capitalization law.",
+                                            "Payments allways rule, not the rate. Dempending on the payments, the rate is changed.",
+                                            "FV is not influenced by the deferral.",
+                                            "PV is no influenced by the ca"
+                                            
+                                         ])

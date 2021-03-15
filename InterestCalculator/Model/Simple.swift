@@ -13,55 +13,98 @@ class Simple {
     var accrued: Double?
     var rate: Double?
     
+    @AppStorage("timeType") var selectedTimeType: TimeTypes = TimeTypes.years
+    
     init(time: Double, principal: Double, rate: Double, accrued: Double) {
+        
         self.time = time
         self.accrued = accrued
         self.rate = rate
         self.principal = principal
     }
     
-    init(time: Double, principal: Double, rate: Double) {
-        self.time = time
-        self.accrued = Double.zero
-        self.rate = rate
-        self.principal = principal
+    var rateDecimal: Double{
+        if let rate = self.rate {
+            return (rate / 100)
+        }else{
+            return Double.zero
+        }
     }
     
-    init(time: Double, principal: Double, accrued: Double) {
-        self.time = time
-        self.accrued = accrued
-        self.rate = Double.zero
-        self.principal = principal
+    
+    func calculateAccrued() -> Double{
+        if let rate = self.rate, let principal = self.principal {
+            print("time into years: \(self.time)")
+            let rateTime = rate * timeIntoYears
+            self.accrued = principal * (1 + Double(rateTime))
+        }
+        return self.accrued ?? Double.zero
     }
     
-    init(principal: Double, accrued: Double, rate: Double) {
-        self.time = Double.zero
-        self.accrued = accrued
-        self.rate = rate
-        self.principal = principal
+   
+    func calculateTime() -> Double{
+        if let principal = self.principal, let accrued = self.accrued {
+            self.time = Double(1 / self.rateDecimal) * Double((accrued / principal) - 1)
+        }
+        return self.time ?? Double.zero
     }
     
-    init(time: Double, accrued: Double, rate: Double) {
-        self.time = time
-        self.accrued = accrued
-        self.rate = rate
-        self.principal = Double.zero
+    func calculateRate() -> Double{
+        if let time = self.time, let principal = self.principal, let accrued = self.accrued {
+            let auxRate = (1/time) * ((accrued / principal) - 1) * 100// this is decimal rate, not anual rate
+            self.rate = self.convertToAnnualRate(distinctRate: auxRate)
+        }
+        return self.rate ?? Double.zero
     }
     
-    private func calculateAccrued(){
+    func calculatePrincipal() -> Double{
+        if let accrued = self.accrued {
+            self.principal = accrued / (1 + (self.rateDecimal * timeIntoYears))
+        }
+        return self.principal ?? Double.zero
+    }
+    
+    //putting time into years for simplicity...
+    //if its day weeeks or monthss.. we need to convert it to years
+    public var timeIntoYears: Double{
+        var years: Double = Double.zero
+        if let time = self.time {
+            switch self.selectedTimeType {
+            case .months:
+                years = time / 12
+            case .quarters:
+                years = time / 4
+            case .threeHundrednSixty:
+                years = time / 360
+            case .threeHundrednSixtyFive:
+                years = time / 365
+            case .weaks:
+                years = time / 52
+            default: //Years
+                years = time
+            }
+        }
         
+        return years
     }
     
-    private func calculateTime(){
-        
-    }
-    
-    private func calculateRate(){
-        
-    }
-    
-    private func calculatePrincipal(){
-        
+    public func convertToAnnualRate(distinctRate: Double) -> Double{
+        var annualRate: Double = Double.zero
+        switch self.selectedTimeType {
+        case .months:
+            annualRate = distinctRate * 12
+        case .quarters:
+            annualRate = distinctRate * 4
+        case .threeHundrednSixty:
+            annualRate = distinctRate * 360
+        case .threeHundrednSixtyFive:
+            annualRate = distinctRate * 365
+        case .weaks:
+            annualRate = distinctRate * 52
+        default: //Years
+            annualRate = distinctRate
+        }
+        return annualRate
     }
 }
 
