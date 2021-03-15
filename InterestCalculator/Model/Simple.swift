@@ -16,7 +16,6 @@ class Simple {
     @AppStorage("timeType") var selectedTimeType: TimeTypes = TimeTypes.years
     
     init(time: Double, principal: Double, rate: Double, accrued: Double) {
-        
         self.time = time
         self.accrued = accrued
         self.rate = rate
@@ -34,7 +33,6 @@ class Simple {
     
     func calculateAccrued() -> Double{
         if let rate = self.rate, let principal = self.principal {
-            print("time into years: \(self.time)")
             let rateTime = rate * timeIntoYears
             self.accrued = principal * (1 + Double(rateTime))
         }

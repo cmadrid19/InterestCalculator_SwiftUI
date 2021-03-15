@@ -10,7 +10,7 @@
 		9E18970025F81BF200AF9591 /* TimeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1896FF25F81BF200AF9591 /* TimeTypes.swift */; };
 		9E18970425F82F4600AF9591 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18970325F82F4600AF9591 /* Extensions.swift */; };
 		9E18970C25F9590400AF9591 /* SimpleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18970B25F9590400AF9591 /* SimpleVM.swift */; };
-		9E18971625F964CC00AF9591 /* ManifestaCaculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18971525F964CC00AF9591 /* ManifestaCaculationView.swift */; };
+		9E18971625F964CC00AF9591 /* ManifestCaculationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18971525F964CC00AF9591 /* ManifestCaculationView.swift */; };
 		9E18971A25F965ED00AF9591 /* PeriodicCompoundVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18971925F965ED00AF9591 /* PeriodicCompoundVM.swift */; };
 		9E18972325FAC9B500AF9591 /* InfoSheetDatum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18972225FAC9B500AF9591 /* InfoSheetDatum.swift */; };
 		9E18972625FAF31000AF9591 /* Simple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18972525FAF31000AF9591 /* Simple.swift */; };
@@ -33,7 +33,7 @@
 		9E1896FF25F81BF200AF9591 /* TimeTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTypes.swift; sourceTree = "<group>"; };
 		9E18970325F82F4600AF9591 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9E18970B25F9590400AF9591 /* SimpleVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleVM.swift; sourceTree = "<group>"; };
-		9E18971525F964CC00AF9591 /* ManifestaCaculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManifestaCaculationView.swift; sourceTree = "<group>"; };
+		9E18971525F964CC00AF9591 /* ManifestCaculationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManifestCaculationView.swift; sourceTree = "<group>"; };
 		9E18971925F965ED00AF9591 /* PeriodicCompoundVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicCompoundVM.swift; sourceTree = "<group>"; };
 		9E18972225FAC9B500AF9591 /* InfoSheetDatum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSheetDatum.swift; sourceTree = "<group>"; };
 		9E18972525FAF31000AF9591 /* Simple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simple.swift; sourceTree = "<group>"; };
@@ -111,7 +111,7 @@
 				9EED972C25F7AF950062CC77 /* Rents */,
 				9EED972B25F7AF7D0062CC77 /* CompoundInterest */,
 				9EED972225F7A7440062CC77 /* SimpleInterest */,
-				9E18971525F964CC00AF9591 /* ManifestaCaculationView.swift */,
+				9E18971525F964CC00AF9591 /* ManifestCaculationView.swift */,
 				9E7C4B8A25FF8DAA00352223 /* AlertType.swift */,
 			);
 			path = View;
@@ -243,7 +243,7 @@
 				9E18970025F81BF200AF9591 /* TimeTypes.swift in Sources */,
 				9EED970025F66C7C0062CC77 /* InterestCalculatorApp.swift in Sources */,
 				9E18971A25F965ED00AF9591 /* PeriodicCompoundVM.swift in Sources */,
-				9E18971625F964CC00AF9591 /* ManifestaCaculationView.swift in Sources */,
+				9E18971625F964CC00AF9591 /* ManifestCaculationView.swift in Sources */,
 				9EED972425F7A75E0062CC77 /* CustomTimePickerView.swift in Sources */,
 				9E18972625FAF31000AF9591 /* Simple.swift in Sources */,
 				9E18972325FAC9B500AF9591 /* InfoSheetDatum.swift in Sources */,

@@ -84,7 +84,6 @@ class SimpleVM: ObservableObject {
     
     
     func calculate() {
-        
         self.simpleInterest = Simple(time: Double(self.time.replacingOccurrences(of: ",", with: ".")) ?? Double.zero,
                                      principal: Double(self.principal) ?? Double.zero,
                                      rate: Double(self.rate.replacingOccurrences(of: ",", with: ".")) ?? Double.zero,

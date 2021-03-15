@@ -36,8 +36,7 @@ var periodicCompoundInfoSheet: SheetData = SheetData(definition: "Using the comp
                                                 "t = Number of Periods"
                                             ],
                                             notes: [
-                                                "Early loan only makes sense in thee final value",
-                                                "In a final value the is no deferral",
+                                               ""
                                                 
                                             ])
 
@@ -54,6 +53,8 @@ var rentInfoSheet: SheetData = SheetData(definition: "What do Payroll, mortgages
                                             "We will use the compound discount or compound capitalization law.",
                                             "Payments allways rule, not the rate. Dempending on the payments, the rate is changed.",
                                             "FV is not influenced by the deferral.",
-                                            "PV is no influenced by the ca"
+//                                            "PV is no influenced by the promptness",
+                                            "Early loan only makes sense in the final value.",
+                                            "In a final value there is no deferral."
                                             
                                          ])

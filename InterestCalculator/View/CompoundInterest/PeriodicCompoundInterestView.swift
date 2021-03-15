@@ -72,8 +72,7 @@ struct PeriodicCompoundInterestView: View {
             
             Spacer()
         }
-        
-        
+        .alert(item: $compoundVM.alertType) { $0.alert }
     }
     
     private struct AnswerView: View {

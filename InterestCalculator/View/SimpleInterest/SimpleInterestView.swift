@@ -13,7 +13,7 @@ struct SimpleInterestView: View {
     @AppStorage("selectedPupose") var selectedPurpose: Purpose = Purpose.accrued
     
     var body: some View {
-        ScrollView {
+         
             VStack(spacing: 10){
                 
                 ManifestCalculationView()
@@ -75,7 +75,6 @@ struct SimpleInterestView: View {
                 .padding()
             }
             .frame(width: UIScreen.main.bounds.width, alignment: .leading)
-        }
         .alert(item: $simpleVM.alertType) { $0.alert }
     }
     
